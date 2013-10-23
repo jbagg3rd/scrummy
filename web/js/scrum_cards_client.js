@@ -6,6 +6,7 @@ var mySid = null;
 var myNick = null;
 var myGame = null;
 var voteValues = null;
+var autoReveal = false;
 
 /*******************************************************************************
  * BASIC SETUP, READY FUNCTIONS, AND THE SIGN IN FUNCTION                      *
@@ -127,6 +128,9 @@ function signIn(mode){
       $('#btnLink').trigger('click');
     }
 
+    autoReveal = msg.autoReveal;
+    $("#btnReveal").toggle(!autoReveal);
+
     /* Hide the sign-in form, reveal the results panel and the "hand" */
     $('#nickname-display').text(myNick);
     $('#login, #readme').slideUp();
@@ -224,6 +228,18 @@ function clientReveal(e){
  */
 function voteOccured(e){
   addVote(e.sid,e.number);
+  var allClientsVoted = allVoted();
+  console.log(allClientsVoted);
+  if ( autoReveal && allClientsVoted ) {
+      console.log('reveal');
+    clientReveal();
+  }
+}
+
+function allVoted () {
+  console.log($('#clients').children().length);
+  console.log($('#clients').children('.voted').length);
+  return $('#clients').children().length == $('#clients').children('.voted').length;
 }
 
 /**

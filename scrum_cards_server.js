@@ -102,7 +102,8 @@ io.sockets.on('connection',function(socket){
       'nickname' : requestedNick,
       'points' : config.points,
       'users' : bucket[requestedGame],
-      'game' : requestedGame
+      'game' : requestedGame,
+      'autoReveal' : config.autoreveal
     });
   });
 
