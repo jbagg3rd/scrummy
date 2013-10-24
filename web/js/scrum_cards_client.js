@@ -8,6 +8,8 @@ var myGame = null;
 var voteValues = null;
 var autoReveal = false;
 var highlight_highlow = false;
+var novote_afterreveal = false;
+var revealed = false;
 
 /*******************************************************************************
  * BASIC SETUP, READY FUNCTIONS, AND THE SIGN IN FUNCTION                      *
@@ -132,7 +134,8 @@ function signIn(mode){
     autoReveal = msg.autoReveal;
     $("#btnReveal").toggle(!autoReveal);
 
-    highlight_highlow = msg.highlight_highlow
+    highlight_highlow = msg.highlight_highlow;
+    novote_afterreveal = msg.novote_afterreveal;
 
     /* Hide the sign-in form, reveal the results panel and the "hand" */
     $('#nickname-display').text(myNick);
@@ -154,7 +157,6 @@ function showCards() {
   newCards.each(function(i){
     $(this).delay(250*i).fadeIn(300);
   });
-
 }
 
 /**
@@ -194,7 +196,6 @@ function updateWelcomeCount() {
   } else {
     $('#login h2').text('Welcome! Start a new game.');
   }
-
 }
 
 /*******************************************************************************
@@ -209,6 +210,7 @@ function clientReset(e){
   $('#votingResult .vote').text('');
   $('#votingResult .client').removeClass('voted');
   $('#votingResult').removeClass('reveal');
+  revealed = false;
 }
 
 /**
@@ -224,6 +226,7 @@ function clientRevoke(e){
  * The server has ordered clients to reveal all votes
  */
 function clientReveal(e){
+  revealed = true;
   $('#votingResult').addClass('reveal');
 
   if ( highlight_highlow ) {
@@ -231,6 +234,7 @@ function clientReveal(e){
     var highestVote = Math.max.apply(null, votes);
     var lowestVote = Math.min.apply(null, votes);
     $('#clients .vote').removeClass('highest');
+    $('#clients .vote').removeClass('lowest');
     $('#clients .vote:contains(' + highestVote +')').addClass('highest');
     $('#clients .vote:contains(' + lowestVote +')').addClass('lowest');
   }
@@ -248,8 +252,6 @@ function voteOccured(e){
 }
 
 function allVoted () {
-  console.log($('#clients').children().length);
-  console.log($('#clients').children('.voted').length);
   return $('#clients').children().length == $('#clients').children('.voted').length;
 }
 
@@ -289,6 +291,8 @@ function clientDisconnected(e){
  * User has clicked a card. Send vote to server for broadcasting
  */
 function vote(card){
+  if ( novote_afterreveal && revealed ) return;
+
   if ( $(card).hasClass('selected') ) {
     /* The "current" vote has been clicked. We should revoke it. */
     cli.send('voteRevoke', null, function(res,msg){

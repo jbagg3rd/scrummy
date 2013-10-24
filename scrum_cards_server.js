@@ -104,7 +104,8 @@ io.sockets.on('connection',function(socket){
       'users' : bucket[requestedGame],
       'game' : requestedGame,
       'autoReveal' : config.autoreveal,
-      'highlight_highlow' : config.highlight_highlow
+      'highlight_highlow' : config.highlight_highlow,
+      'novote_afterreveal' : config.novote_afterreveal
     });
   });
 

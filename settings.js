@@ -22,5 +22,6 @@ config.words = ['aliceblue', 'antiquewhite', 'aqua', 'aquamarine', 'azure', 'bei
   'yellowgreen'];
 config.autoreveal = true;
 config.highlight_highlow = true;
+config.novote_afterreveal = true;
 
 module.exports = config;
