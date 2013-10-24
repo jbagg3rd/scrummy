@@ -229,9 +229,7 @@ function clientReveal(e){
 function voteOccured(e){
   addVote(e.sid,e.number);
   var allClientsVoted = allVoted();
-  console.log(allClientsVoted);
   if ( autoReveal && allClientsVoted ) {
-      console.log('reveal');
     clientReveal();
   }
 }
