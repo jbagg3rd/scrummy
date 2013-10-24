@@ -314,6 +314,7 @@ function resetVotes(){
  * Like above, but with the reveal button.
  */
 function revealVotes(){
+  if ( autoReveal ) return;
   cli.send('reveal',null, function(res,msg){
     /* Server returned false; alert with message and bail */
     if(!res){ alert(msg); return false; }
