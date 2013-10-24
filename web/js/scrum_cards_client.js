@@ -235,8 +235,8 @@ function clientReveal(e){
     var lowestVote = Math.min.apply(null, votes);
     $('#clients .vote').removeClass('highest');
     $('#clients .vote').removeClass('lowest');
-    $('#clients .vote:contains(' + highestVote +')').addClass('highest');
-    $('#clients .vote:contains(' + lowestVote +')').addClass('lowest');
+    $('#clients .vote').filter(function() {return $(this).html() == highestVote}).addClass('highest');
+    $('#clients .vote').filter(function() {return $(this).html() == lowestVote}).addClass('lowest');
   }
 }
 
