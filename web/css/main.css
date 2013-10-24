@@ -978,6 +978,9 @@ input[type="text"]:focus {
   font-weight: 400;
   text-shadow: #1f1a19 1px 1px 0px;
 }
+.highest, .lowest {
+  border-bottom: 3px solid black;
+}
 @media (max-width: 679px) {
   #clients .client {
     width: auto;

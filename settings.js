@@ -21,5 +21,6 @@ config.words = ['aliceblue', 'antiquewhite', 'aqua', 'aquamarine', 'azure', 'bei
   'tomato', 'turquoise', 'violet', 'wheat', 'white', 'whitesmoke', 'yellow',
   'yellowgreen'];
 config.autoreveal = true;
+config.highlight_highlow = true;
 
 module.exports = config;

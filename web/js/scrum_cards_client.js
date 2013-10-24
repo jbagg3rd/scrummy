@@ -7,6 +7,7 @@ var myNick = null;
 var myGame = null;
 var voteValues = null;
 var autoReveal = false;
+var highlight_highlow = false;
 
 /*******************************************************************************
  * BASIC SETUP, READY FUNCTIONS, AND THE SIGN IN FUNCTION                      *
@@ -131,6 +132,8 @@ function signIn(mode){
     autoReveal = msg.autoReveal;
     $("#btnReveal").toggle(!autoReveal);
 
+    highlight_highlow = msg.highlight_highlow
+
     /* Hide the sign-in form, reveal the results panel and the "hand" */
     $('#nickname-display').text(myNick);
     $('#login, #readme').slideUp();
@@ -151,6 +154,7 @@ function showCards() {
   newCards.each(function(i){
     $(this).delay(250*i).fadeIn(300);
   });
+
 }
 
 /**
@@ -221,6 +225,15 @@ function clientRevoke(e){
  */
 function clientReveal(e){
   $('#votingResult').addClass('reveal');
+
+  if ( highlight_highlow ) {
+    var votes = $('#clients .vote').map(function () {return parseInt($(this).text());}).get();
+    var highestVote = Math.max.apply(null, votes);
+    var lowestVote = Math.min.apply(null, votes);
+    $('#clients .vote').removeClass('highest');
+    $('#clients .vote:contains(' + highestVote +')').addClass('highest');
+    $('#clients .vote:contains(' + lowestVote +')').addClass('lowest');
+  }
 }
 
 /**

@@ -103,7 +103,8 @@ io.sockets.on('connection',function(socket){
       'points' : config.points,
       'users' : bucket[requestedGame],
       'game' : requestedGame,
-      'autoReveal' : config.autoreveal
+      'autoReveal' : config.autoreveal,
+      'highlight_highlow' : config.highlight_highlow
     });
   });
 
