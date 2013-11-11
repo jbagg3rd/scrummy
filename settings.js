@@ -1,7 +1,7 @@
 var config = {}
 
 config.points = ['1','2','3','5','8','13','21','40','100'];
-config.port = 8080;
+config.port = 80;
 // These are the valid HTML color names minus Light*, Medium*, and Dark*, to use
 // as room names. The random number generator is still a fallback but these are
 // easier to communicate verbally.
