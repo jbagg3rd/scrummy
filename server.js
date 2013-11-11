@@ -27,7 +27,7 @@ var express = require('express'),
     config  = require('./settings.js');
 
 app.use(express.static(__dirname + '/web'));
-server.listen(config.port);
+server.listen(process.env.port || config.port);
 
 io.sockets.on('connection',function(socket){
 
