@@ -237,6 +237,26 @@ function clientReveal(e){
     $('#clients .vote').removeClass('lowest');
     $('#clients .vote').filter(function() {return $(this).html() == highestVote}).addClass('highest');
     $('#clients .vote').filter(function() {return $(this).html() == lowestVote}).addClass('lowest');
+
+///Tobe refactored
+    let firstVote = votes[0];
+    let isAllMatching = true;
+     $(votes).each( function (i,v) {
+      if(v != firstVote)
+        isAllMatching = false;
+    });
+
+    //alert(isAllMatching);
+    if(isAllMatching){
+      $('canvas').removeClass('hidden');
+      setTimeout(function(){ $('canvas').addClass('hidden'); }, 10000);
+        var i1 = setInterval(launch, 800);
+        var i2 = setInterval(loop, 1000 / 50);
+      setInterval(function() { clearInterval(i1);}, 10000);
+      setInterval(function() { clearInterval(i2);}, 10000);
+    }
+//
+
   }
 }
 
